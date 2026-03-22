@@ -19,7 +19,7 @@ def main():
     X_train, X_val, X_test, y_train, y_val, y_test = temporal_split_and_scale(df, target_col='fraud_flag')
     
     print("\n--- 3. Training Models ---")
-    models_to_train = ['logistic', 'tree', 'forest', 'xgboost', 'svm', 'sgd']
+    models_to_train = ['logistic', 'tree', 'forest', 'xgboost', 'sgd']
     
     metrics_list = []
     prob_dict = {}
