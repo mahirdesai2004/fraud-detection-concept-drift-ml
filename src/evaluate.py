@@ -70,6 +70,5 @@ def plot_pr_curves(y_true, prob_dict, save_path="outputs/plots/pr_curves.png"):
     plt.legend(loc="lower left")
     plt.grid(True)
     
-    plt.savefig(save_path)
+    plt.savefig(save_path, dpi=300)
     print(f"PR-Curve plot saved to {save_path}")
-    plt.show()

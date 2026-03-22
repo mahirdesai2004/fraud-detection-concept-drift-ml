@@ -41,6 +41,7 @@ def train_and_predict(model_type, X_train, y_train, X_val, y_val, X_test):
             max_depth=5, 
             learning_rate=0.1,
             scale_pos_weight=scale_pos_weight,
+            early_stopping_rounds=10,
             random_state=42,
             n_jobs=-1
         )
@@ -63,7 +64,13 @@ def train_and_predict(model_type, X_train, y_train, X_val, y_val, X_test):
         
     elif model_type == 'sgd':
         # SGDClassifier for incremental/online learning
-        model = SGDClassifier(loss='log_loss', class_weight='balanced', random_state=42, n_jobs=-1)
+        import numpy as np
+        from sklearn.utils.class_weight import compute_class_weight
+        classes_arr = np.unique(y_train)
+        cw = compute_class_weight('balanced', classes=classes_arr, y=y_train)
+        cw_dict = {classes_arr[i]: cw[i] for i in range(len(classes_arr))}
+        
+        model = SGDClassifier(loss='log_loss', class_weight=cw_dict, random_state=42, n_jobs=-1)
         
         # Using partial fit simulating online learning across batches
         print(f"Training {model_type} using partial_fit...")

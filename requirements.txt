@@ -6,3 +6,4 @@ seaborn
 xgboost
 datasets
 shap
+scipy
